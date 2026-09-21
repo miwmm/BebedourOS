@@ -1,0 +1,22 @@
+# Godot 4+
+.godot/
+
+# Builds / exports
+build/
+dist/
+exports/
+
+# IDEs
+.vscode/
+.idea/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log

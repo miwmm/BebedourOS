@@ -1,0 +1,170 @@
+[gd_scene load_steps=12 format=3 uid="uid://cqwj6qtw2t5e2"]
+
+[ext_resource type="Script" uid="uid://bxqkr8p4wjtum" path="res://scenes/menus/algorithm_selection.gd" id="1_5llwg"]
+[ext_resource type="Texture2D" uid="uid://dwd5ni5jrhqqw" path="res://assets/backgrounds/main_menu.png" id="1_uvu8c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5llwg"]
+content_margin_left = 40.0
+content_margin_top = 40.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.141176, 0.0313726, 0.137255, 0.862745)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.719335, 0.0773509, 0.720017, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7oqu"]
+bg_color = Color(0.205229, 0.106719, 0.262306, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl8e7"]
+bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvu8c"]
+bg_color = Color(0.203922, 0.105882, 0.262745, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf210"]
+bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4q8b"]
+bg_color = Color(0.203922, 0.105882, 0.262745, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejhad"]
+bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kitea"]
+bg_color = Color(0.203922, 0.105882, 0.262745, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrpwi"]
+bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
+[node name="AlgorithmSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5llwg")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_uvu8c")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5llwg")
+
+[node name="MainContainer" type="VBoxContainer" parent="Content/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 30
+
+[node name="Title" type="Label" parent="Content/PanelContainer/MainContainer"]
+layout_mode = 2
+text = "ESCOLHA O ALGORITMO"
+
+[node name="AlgorithmGrid" type="GridContainer" parent="Content/PanelContainer/MainContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="FCFSButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+custom_minimum_size = Vector2(320, 140)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7oqu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sl8e7")
+text = "FCFS
+
+Primeiro a chegar,
+ primeiro a executar"
+
+[node name="SJFButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+custom_minimum_size = Vector2(320, 140)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_uvu8c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tf210")
+text = "SJF
+
+O menor processo é 
+executado primeiro"
+
+[node name="PriorityButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+custom_minimum_size = Vector2(320, 140)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_d4q8b")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ejhad")
+text = "Prioridade
+
+Processos com maior prioridade 
+são executados primeiro"
+
+[node name="RoundRobinButton4" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+custom_minimum_size = Vector2(320, 140)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_kitea")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hrpwi")
+text = "ROUND ROBIN
+
+Cada processo recebe uma
+ fatia de tempo da CPU."
+
+[connection signal="pressed" from="Content/PanelContainer/MainContainer/AlgorithmGrid/FCFSButton" to="." method="_on_fcfs_button_pressed"]

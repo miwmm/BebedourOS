@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://jfry5mantj5e"]
+
+[ext_resource type="Script" uid="uid://g876lf0igt8h" path="res://scripts/characters/student.gd" id="1_30ov7"]
+[ext_resource type="Texture2D" uid="uid://qg6uchpob62q" path="res://assets/sprites/characters/student/Aluno-frente-1.png.png" id="2_1xqm5"]
+
+[node name="Student" type="CharacterBody2D"]
+script = ExtResource("1_30ov7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1xqm5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="ProcessLabel" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -52.0
+offset_right = 30.0
+offset_bottom = -29.0
+text = "P1"

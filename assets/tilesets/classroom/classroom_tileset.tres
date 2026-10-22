@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=91 format=3 uid="uid://bqjfdo5odef1t"]
+[gd_resource type="TileSet" format=3 uid="uid://bqjfdo5odef1t"]
 
 [ext_resource type="Texture2D" uid="uid://cxlcqo7ch8hmp" path="res://assets/tilesets/classroom/textures/floor.png" id="1_imqol"]
 [ext_resource type="Texture2D" uid="uid://blif3umo3uely" path="res://assets/tilesets/classroom/textures/floor-2.png" id="2_8ngh5"]
@@ -22,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://bf3q6ps2i62gi" path="res://assets/tilesets/classroom/textures/wall-top-2.png" id="20_q8ssk"]
 [ext_resource type="Texture2D" uid="uid://cplpari7c1uwf" path="res://assets/tilesets/classroom/textures/wall-top-3.png" id="21_vemjt"]
 [ext_resource type="Texture2D" uid="uid://cnym0u1bbrik8" path="res://assets/tilesets/classroom/textures/wall-top-4.png" id="22_f6xio"]
-[ext_resource type="Texture2D" uid="uid://dhwep80o5k7bq" path="res://assets/tilesets/classroom/textures/wall-top-1 (2).png" id="23_fv12g"]
 [ext_resource type="Texture2D" uid="uid://dbcl44of028rr" path="res://assets/tilesets/classroom/textures/brick-wall-3.png" id="24_tnwam"]
 [ext_resource type="Texture2D" uid="uid://d18j7ysacqjfk" path="res://assets/tilesets/classroom/textures/border-1.png" id="25_nj155"]
 [ext_resource type="Texture2D" uid="uid://bk7o6u0bmja3m" path="res://assets/tilesets/classroom/textures/border-2.png" id="26_fluie"]
@@ -157,7 +156,6 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_77bgt"]
-texture = ExtResource("23_fv12g")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 

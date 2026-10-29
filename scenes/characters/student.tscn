@@ -15,11 +15,16 @@ texture = ExtResource("2_1xqm5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1086772417]
 
 [node name="ProcessLabel" type="Label" parent="." unique_id=1130559211]
-offset_left = -10.0
-offset_top = -52.0
-offset_right = 30.0
-offset_bottom = -29.0
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -30.0
+theme_override_constants/line_spacing = -3
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
 text = "P1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ClickArea" type="Area2D" parent="." unique_id=1570362701]
 

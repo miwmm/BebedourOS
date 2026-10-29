@@ -13,7 +13,7 @@ layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=947885814]
 layout_mode = 2
-text = "Diagrama de Gantt - FCFS"
+text = "Diagrama de Gantt - SJF"
 
 [node name="ChartArea" type="Control" parent="MarginContainer/VBoxContainer" unique_id=847331333]
 custom_minimum_size = Vector2(0, 75)

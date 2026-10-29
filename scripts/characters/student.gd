@@ -18,9 +18,10 @@ func _ready() -> void:
 	
 func setup(new_process: Process) -> void:
 	process = new_process
-	process_label.text = "P%d" % process.pid
-
-	print("Aluno P", process.pid, " configurado!")
+	process_label.text = "P%d\n%du" % [
+		process.pid,
+		process.burst_time
+	]
 
 func move_to(destination: Vector2) -> void:
 	target_position = destination

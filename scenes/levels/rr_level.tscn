@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://cnlna2eaa01uq"]
+
+[ext_resource type="Script" uid="uid://fr2urvqvwvjp" path="res://scripts/levels/rr_level.gd" id="1_r2x8m"]
+[ext_resource type="PackedScene" uid="uid://cdes14dhrhjsh" path="res://scenes/environments/classroom.tscn" id="2_4uypo"]
+[ext_resource type="PackedScene" uid="uid://cxcoorwfgpdxs" path="res://scenes/ui/scheduling_hud.tscn" id="3_5k3v5"]
+[ext_resource type="PackedScene" uid="uid://byfcx5bfwifcg" path="res://scenes/ui/gantt_chart.tscn" id="4_mlxw5"]
+[ext_resource type="PackedScene" uid="uid://d33lyl8ntu7wm" path="res://scenes/ui/results_screen.tscn" id="5_48pek"]
+
+[node name="RRLevel" type="Node2D" unique_id=1986692536]
+script = ExtResource("1_r2x8m")
+
+[node name="Classroom" parent="." unique_id=795672055 instance=ExtResource("2_4uypo")]
+
+[node name="StudentSpawn1" type="Marker2D" parent="." unique_id=414163478]
+position = Vector2(592, 403)
+
+[node name="StudentSpawn2" type="Marker2D" parent="." unique_id=2031966299]
+position = Vector2(636, 405)
+
+[node name="StudentSpawn3" type="Marker2D" parent="." unique_id=1338311504]
+position = Vector2(685, 400)
+
+[node name="Students" type="Node2D" parent="." unique_id=165991018]
+
+[node name="QueuePositions" type="Node2D" parent="." unique_id=431742937]
+
+[node name="QueuePosition1" type="Marker2D" parent="QueuePositions" unique_id=350596448]
+position = Vector2(424, 540)
+
+[node name="QueuePosition2" type="Marker2D" parent="QueuePositions" unique_id=1429771268]
+position = Vector2(483, 540)
+
+[node name="QueuePosition3" type="Marker2D" parent="QueuePositions" unique_id=883637374]
+position = Vector2(540, 540)
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=209994018]
+
+[node name="SchedulingHUD" parent="HUDLayer" unique_id=1206498685 instance=ExtResource("3_5k3v5")]
+
+[node name="GanttChart" parent="HUDLayer" unique_id=425618883 instance=ExtResource("4_mlxw5")]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 180.0
+offset_top = -145.0
+offset_right = -180.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="TitleLabel" parent="HUDLayer/GanttChart/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(425618883, 1111569569) index="0" unique_id=947885814]
+text = "Diagrama de Gantt - Round Robin"
+
+[node name="ResultsScreen" parent="HUDLayer" unique_id=368813787 instance=ExtResource("5_48pek")]
+visible = false
+
+[editable path="HUDLayer/GanttChart"]

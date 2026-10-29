@@ -50,4 +50,9 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
+[node name="TitleLabel" parent="HUDLayer/GanttChart/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(425618883, 1111569569) index="0" unique_id=947885814]
+text = "Diagrama de Gantt - FCFS"
+
 [node name="ResultsScreen" parent="HUDLayer" unique_id=368813787 instance=ExtResource("5_d3unp")]
+
+[editable path="HUDLayer/GanttChart"]

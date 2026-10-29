@@ -52,3 +52,5 @@ mouse_filter = 2
 
 [node name="ResultsScreen" parent="HUDLayer" unique_id=368813787 instance=ExtResource("5_sn0ia")]
 visible = false
+
+[editable path="HUDLayer/GanttChart"]

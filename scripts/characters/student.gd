@@ -1,6 +1,8 @@
 class_name Student
 extends CharacterBody2D
 
+signal student_selected(process: Process)
+
 @export var movement_speed: float = 100.0
 
 var target_position: Vector2
@@ -10,10 +12,15 @@ var process: Process
 
 @onready var process_label: Label = $ProcessLabel
 
-
+func _ready() -> void:
+	$ClickArea.input_event.connect(_on_click_area_input_event)
+	print("Área clicável conectada!")
+	
 func setup(new_process: Process) -> void:
 	process = new_process
 	process_label.text = "P%d" % process.pid
+
+	print("Aluno P", process.pid, " configurado!")
 
 func move_to(destination: Vector2) -> void:
 	target_position = destination
@@ -39,3 +46,13 @@ func _physics_process(delta: float) -> void:
 
 	velocity = direction * movement_speed
 	move_and_slide()
+	
+func _on_click_area_input_event(
+	_viewport: Node,
+	event: InputEvent,
+	_shape_idx: int
+) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if process != null and process.state == "ready":
+				student_selected.emit(process)

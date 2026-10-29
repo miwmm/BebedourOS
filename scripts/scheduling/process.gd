@@ -7,7 +7,7 @@ var burst_time: int
 var priority: int
 
 var remaining_time: int
-var state: String = "ready"
+var state: String = "new"
 
 var start_time: int = -1
 var completion_time: int = -1

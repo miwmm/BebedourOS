@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfubgoaykswgs" path="res://scenes/levels/fcfs_level.gd" id="1_63gci"]
 [ext_resource type="PackedScene" uid="uid://cdes14dhrhjsh" path="res://scenes/environments/classroom.tscn" id="2_22t76"]
+[ext_resource type="PackedScene" uid="uid://cxcoorwfgpdxs" path="res://scenes/ui/scheduling_hud.tscn" id="3_0mmqp"]
 
 [node name="FCFSLevel" type="Node2D" unique_id=1986692536]
 script = ExtResource("1_63gci")
@@ -29,3 +30,7 @@ position = Vector2(483, 540)
 
 [node name="QueuePosition3" type="Marker2D" parent="QueuePositions" unique_id=883637374]
 position = Vector2(540, 540)
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=209994018]
+
+[node name="SchedulingHUD" parent="HUDLayer" unique_id=1206498685 instance=ExtResource("3_0mmqp")]

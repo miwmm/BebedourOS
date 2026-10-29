@@ -10,17 +10,18 @@ var simulation_time: int = 0
 var students: Dictionary = {}
 var queue_order: Array[Process] = []
 var completed_processes: Array[Process] = []
-
+var ready_queue: Array[Process] = []
+var waiting_for_selection: bool = false
 var current_process: Process = null
 
 @onready var fountain_point: Marker2D = $Classroom/WaterFountain/InteractionPoint
-
+@onready var hud = $HUDLayer/SchedulingHUD
 
 func _ready() -> void:
 	var processes: Array[Process] = [
-		Process.new(1, 4, 5),
-		Process.new(2, 0, 3),
-		Process.new(3, 2, 7)
+		Process.new(1, 2, 5),
+		Process.new(2, 0, 6),
+		Process.new(3, 3, 7)
 	]
 
 	var scheduler := FCFSScheduler.new()
@@ -33,7 +34,8 @@ func _ready() -> void:
 
 	for student in students.values():
 		student.visible = false
-
+	hud.update_time(0, 15)
+	hud.update_cpu(null)
 	_run_simulation()
 
 
@@ -49,14 +51,21 @@ func _run_simulation() -> void:
 		_check_arrivals()
 		_check_execution_events()
 
+		hud.update_time(simulation_time, final_time)
+		hud.update_cpu(current_process)
+		hud.update_queue(ready_queue)
+
 		if simulation_time == final_time:
 			break
+
+		# Pausa o relógio enquanto o jogador escolhe.
+		while waiting_for_selection:
+			await get_tree().process_frame
 
 		await get_tree().create_timer(seconds_per_unit).timeout
 		simulation_time += 1
 
 	print("Simulação finalizada no tempo ", simulation_time)
-
 
 func _check_arrivals() -> void:
 	for process in queue_order:
@@ -66,32 +75,40 @@ func _check_arrivals() -> void:
 			student.visible = true
 			process.state = "ready"
 
+			ready_queue.append(process)
+
 			print("P", process.pid, " → PRONTO")
 
-			_move_student_to_queue(process)
+			_update_queue_positions()
 
 
 func _check_execution_events() -> void:
-	# Primeiro encerra o processo anterior.
 	for process in queue_order:
 		if process.completion_time == simulation_time:
 			_finish_process(process)
 
-	# Depois inicia o próximo processo.
 	for process in queue_order:
 		if process.start_time == simulation_time:
-			_start_process(process)
-
-
+			waiting_for_selection = true
+			hud.clear_feedback()
+			print("Aguardando jogador selecionar o próximo processo...")
+		
 func _start_process(process: Process) -> void:
+	# Remove o processo da fila de prontos.
+	ready_queue.erase(process)
+
+	# Reorganiza os alunos que continuam aguardando.
+	_update_queue_positions()
+
 	current_process = process
 	process.state = "running"
 
 	print("P", process.pid, " → EXECUTANDO")
 
 	var student: Student = students[process.pid]
-	student.move_to(fountain_point.global_position)
 
+	# A caminhada representa visualmente a troca de contexto.
+	student.move_to(fountain_point.global_position)
 
 func _finish_process(process: Process) -> void:
 	process.state = "finished"
@@ -123,28 +140,23 @@ func _create_students(processes: Array[Process]) -> void:
 
 		student.global_position = spawn_points[i].global_position
 		student.setup(processes[i])
+		student.student_selected.connect(_on_student_selected)
 
 		students[processes[i].pid] = student
 
 
-func _move_student_to_queue(process: Process) -> void:
+func _update_queue_positions() -> void:
 	var queue_positions: Array[Marker2D] = [
 		$QueuePositions/QueuePosition1,
 		$QueuePositions/QueuePosition2,
 		$QueuePositions/QueuePosition3
 	]
 
-	var queue_index := queue_order.find(process)
+	for i in range(ready_queue.size()):
+		var process: Process = ready_queue[i]
+		var student: Student = students[process.pid]
 
-	if queue_index == -1:
-		return
-
-	var student: Student = students[process.pid]
-
-	student.move_to(
-		queue_positions[queue_index].global_position
-	)
-
+		student.move_to(queue_positions[i].global_position)
 
 func _print_process_metrics() -> void:
 	print("\n===== RESULTADOS FCFS =====")
@@ -157,4 +169,36 @@ func _print_process_metrics() -> void:
 			" | Término: ", process.completion_time,
 			" | Espera: ", process.waiting_time,
 			" | Retorno: ", process.turnaround_time
+		)
+
+func _get_ready_processes() -> Array[Process]:
+	var ready_processes: Array[Process] = []
+
+	for process in queue_order:
+		if process.state == "ready":
+			ready_processes.append(process)
+
+	return ready_processes
+
+func _on_student_selected(process: Process) -> void:
+	if not waiting_for_selection:
+		return
+
+	if ready_queue.is_empty():
+		return
+
+	var expected_process: Process = ready_queue[0]
+
+	if process == expected_process:
+		hud.show_feedback(
+			"Correto! P%d é o próximo processo FCFS." % process.pid,
+			true
+		)
+
+		waiting_for_selection = false
+		_start_process(process)
+	else:
+		hud.show_feedback(
+			"Incorreto! P%d chegou antes. Tente novamente." % expected_process.pid,
+			false
 		)

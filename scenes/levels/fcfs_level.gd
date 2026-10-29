@@ -16,6 +16,8 @@ var current_process: Process = null
 
 @onready var fountain_point: Marker2D = $Classroom/WaterFountain/InteractionPoint
 @onready var hud = $HUDLayer/SchedulingHUD
+@onready var gantt_chart = $HUDLayer/GanttChart
+@onready var results_screen = $HUDLayer/ResultsScreen
 
 func _ready() -> void:
 	var processes: Array[Process] = [
@@ -29,6 +31,15 @@ func _ready() -> void:
 	queue_order = scheduler.schedule(processes)
 	scheduler.calculate_metrics(queue_order)
 
+	var final_time: int = 0
+
+	for process in queue_order:
+		final_time = maxi(final_time, process.completion_time)
+
+	gantt_chart.setup(final_time)
+	
+	results_screen.continue_pressed.connect(_on_results_continue_pressed)
+	
 	_create_students(processes)
 	_print_process_metrics()
 
@@ -66,6 +77,7 @@ func _run_simulation() -> void:
 		simulation_time += 1
 
 	print("Simulação finalizada no tempo ", simulation_time)
+	results_screen.show_results(queue_order, "FCFS")
 
 func _check_arrivals() -> void:
 	for process in queue_order:
@@ -113,6 +125,8 @@ func _start_process(process: Process) -> void:
 func _finish_process(process: Process) -> void:
 	process.state = "finished"
 	completed_processes.append(process)
+	
+	gantt_chart.add_completed_process(process)
 
 	print("P", process.pid, " → FINALIZADO")
 
@@ -202,3 +216,6 @@ func _on_student_selected(process: Process) -> void:
 			"Incorreto! P%d chegou antes. Tente novamente." % expected_process.pid,
 			false
 		)
+
+func _on_results_continue_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")

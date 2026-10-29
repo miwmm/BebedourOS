@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://cfubgoaykswgs" path="res://scenes/levels/fcfs_level.gd" id="1_63gci"]
 [ext_resource type="PackedScene" uid="uid://cdes14dhrhjsh" path="res://scenes/environments/classroom.tscn" id="2_22t76"]
 [ext_resource type="PackedScene" uid="uid://cxcoorwfgpdxs" path="res://scenes/ui/scheduling_hud.tscn" id="3_0mmqp"]
+[ext_resource type="PackedScene" uid="uid://byfcx5bfwifcg" path="res://scenes/ui/gantt_chart.tscn" id="4_suehj"]
+[ext_resource type="PackedScene" uid="uid://d33lyl8ntu7wm" path="res://scenes/ui/results_screen.tscn" id="5_d3unp"]
 
 [node name="FCFSLevel" type="Node2D" unique_id=1986692536]
 script = ExtResource("1_63gci")
@@ -34,3 +36,18 @@ position = Vector2(540, 540)
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=209994018]
 
 [node name="SchedulingHUD" parent="HUDLayer" unique_id=1206498685 instance=ExtResource("3_0mmqp")]
+
+[node name="GanttChart" parent="HUDLayer" unique_id=425618883 instance=ExtResource("4_suehj")]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 180.0
+offset_top = -145.0
+offset_right = -180.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="ResultsScreen" parent="HUDLayer" unique_id=368813787 instance=ExtResource("5_d3unp")]

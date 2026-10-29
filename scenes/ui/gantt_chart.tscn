@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://byfcx5bfwifcg"]
+
+[ext_resource type="Script" uid="uid://k6vdch4gaep" path="res://scripts/ui/gantt_chart.gd" id="1_qrxvk"]
+
+[node name="GanttChart" type="PanelContainer" unique_id=1468409071]
+script = ExtResource("1_qrxvk")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=151614001]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1111569569]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=947885814]
+layout_mode = 2
+text = "Diagrama de Gantt - FCFS"
+
+[node name="ChartArea" type="Control" parent="MarginContainer/VBoxContainer" unique_id=847331333]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2

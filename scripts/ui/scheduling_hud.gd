@@ -6,7 +6,7 @@ extends Control
 @onready var ready_queue_label: Label = $PanelContainer/MarginContainer/VBoxContainer/ReadyQueueLabel
 @onready var progress_bar: ProgressBar = $PanelContainer/MarginContainer/VBoxContainer/ProgressBar
 @onready var feedback_label: Label = $PanelContainer/MarginContainer/VBoxContainer/FeedbackLabel
-
+@onready var quantum_label: Label = $PanelContainer/MarginContainer/VBoxContainer/QuantumLabel
 
 
 func update_time(current_time: int, total_time: int) -> void:
@@ -57,3 +57,15 @@ func show_feedback(message: String, correct: bool) -> void:
 func clear_feedback() -> void:
 	feedback_label.text = ""
 	feedback_label.visible = false
+
+func show_quantum(quantum: int) -> void:
+	quantum_label.visible = true
+	quantum_label.text = "Quantum: 0 / %d" % quantum
+
+
+func update_quantum(elapsed: int, quantum: int) -> void:
+	quantum_label.text = "Quantum: %d / %d" % [elapsed, quantum]
+
+
+func reset_quantum(quantum: int) -> void:
+	quantum_label.text = "Quantum: 0 / %d" % quantum

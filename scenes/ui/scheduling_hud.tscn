@@ -47,6 +47,9 @@ text = "Tempo: 0 / 15"
 layout_mode = 2
 text = "CPU: Livre"
 
+[node name="QuantumLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=65628920]
+layout_mode = 2
+
 [node name="ReadyQueueLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1379391788]
 layout_mode = 2
 text = "Fila: Vazia"

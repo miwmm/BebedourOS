@@ -57,3 +57,12 @@ func _on_click_area_input_event(
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if process != null and process.state == "ready":
 				student_selected.emit(process)
+
+func update_remaining_time() -> void:
+	if process == null:
+		return
+
+	process_label.text = "P%d\n%du" % [
+		process.pid,
+		process.remaining_time
+	]

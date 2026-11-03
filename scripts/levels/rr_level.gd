@@ -48,7 +48,8 @@ func _ready() -> void:
 	hud.update_time(0, final_time)
 	hud.update_cpu(null)
 	hud.update_queue(ready_queue)
-
+	hud.show_quantum(QUANTUM)
+	
 	gantt_chart.setup(final_time)
 
 	results_screen.continue_pressed.connect(_on_results_continue_pressed)
@@ -82,15 +83,24 @@ func _run_simulation() -> void:
 
 		_start_process(process)
 
-		# Executa apenas o tempo permitido pelo quantum.
+		var elapsed_quantum: int = 0
+		var slice_duration: int = end_time - start_time
+
+		hud.update_quantum(0, QUANTUM)
+
+		# Executa o trecho atual do processo.
 		while simulation_time < end_time:
 			await get_tree().create_timer(seconds_per_unit).timeout
+
 			simulation_time += 1
+			elapsed_quantum += 1
+
+			hud.update_quantum(elapsed_quantum, QUANTUM)
+
 			_check_arrivals()
 			_update_hud()
 
 		_finish_quantum(process, end_time)
-
 	print("Round Robin finalizado no tempo ", simulation_time)
 	results_screen.show_results(processes, "Round Robin")
 
@@ -136,7 +146,10 @@ func _finish_quantum(process: Process, end_time: int) -> void:
 	
 	process.remaining_time -= executed_time
 	current_process = null
-
+	
+	var student: Student = students[process.pid]
+	student.update_remaining_time()
+	
 	if process.remaining_time > 0:
 		process.state = "ready"
 		ready_queue.append(process)
@@ -151,7 +164,6 @@ func _finish_quantum(process: Process, end_time: int) -> void:
 	else:
 		process.state = "finished"
 
-		var student: Student = students[process.pid]
 		student.is_moving = false
 		student.velocity = Vector2.ZERO
 		student.visible = false
@@ -159,7 +171,7 @@ func _finish_quantum(process: Process, end_time: int) -> void:
 		print("P", process.pid, " → FINALIZADO")
 
 	_update_hud()
-
+	hud.reset_quantum(QUANTUM)
 
 func _create_students(process_list: Array[Process]) -> void:
 	var spawn_points: Array[Marker2D] = [

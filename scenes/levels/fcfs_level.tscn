@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cxcoorwfgpdxs" path="res://scenes/ui/scheduling_hud.tscn" id="3_0mmqp"]
 [ext_resource type="PackedScene" uid="uid://byfcx5bfwifcg" path="res://scenes/ui/gantt_chart.tscn" id="4_suehj"]
 [ext_resource type="PackedScene" uid="uid://d33lyl8ntu7wm" path="res://scenes/ui/results_screen.tscn" id="5_d3unp"]
+[ext_resource type="PackedScene" uid="uid://cg58p22e6e8u8" path="res://scenes/ui/instruction_screen.tscn" id="6_o2g8y"]
 
 [node name="FCFSLevel" type="Node2D" unique_id=1986692536]
 script = ExtResource("1_63gci")
@@ -54,5 +55,7 @@ mouse_filter = 2
 text = "Diagrama de Gantt - FCFS"
 
 [node name="ResultsScreen" parent="HUDLayer" unique_id=368813787 instance=ExtResource("5_d3unp")]
+
+[node name="InstructionScreen" parent="HUDLayer" unique_id=1342803701 instance=ExtResource("6_o2g8y")]
 
 [editable path="HUDLayer/GanttChart"]

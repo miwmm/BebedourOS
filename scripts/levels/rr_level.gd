@@ -20,7 +20,7 @@ var selected_process: Process = null
 @onready var hud = $HUDLayer/SchedulingHUD
 @onready var gantt_chart = $HUDLayer/GanttChart
 @onready var results_screen = $HUDLayer/ResultsScreen
-
+@onready var instruction_screen = $HUDLayer/InstructionScreen
 
 func _ready() -> void:
 	processes = [
@@ -54,7 +54,14 @@ func _ready() -> void:
 
 	results_screen.continue_pressed.connect(_on_results_continue_pressed)
 
-	_run_simulation()
+	instruction_screen.setup(
+		"Round Robin (RR)",
+		"Cada aluno poderá utilizar o bebedouro por até 2 unidades de tempo. Caso não termine, retornará ao final da fila.",
+		"Selecione sempre o primeiro aluno da fila e acompanhe o tempo restante de cada processo."
+	)
+
+	instruction_screen.start_pressed.connect(_on_instruction_start_pressed)
+	instruction_screen.show()
 
 
 func _run_simulation() -> void:
@@ -241,3 +248,6 @@ func _update_hud() -> void:
 
 func _on_results_continue_pressed() -> void:
 	print("Round Robin concluído!")
+
+func _on_instruction_start_pressed() -> void:
+	_run_simulation()

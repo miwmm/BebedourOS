@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cxcoorwfgpdxs" path="res://scenes/ui/scheduling_hud.tscn" id="3_5k3v5"]
 [ext_resource type="PackedScene" uid="uid://byfcx5bfwifcg" path="res://scenes/ui/gantt_chart.tscn" id="4_mlxw5"]
 [ext_resource type="PackedScene" uid="uid://d33lyl8ntu7wm" path="res://scenes/ui/results_screen.tscn" id="5_48pek"]
+[ext_resource type="PackedScene" uid="uid://cg58p22e6e8u8" path="res://scenes/ui/instruction_screen.tscn" id="6_4uypo"]
 
 [node name="RRLevel" type="Node2D" unique_id=1986692536]
 script = ExtResource("1_r2x8m")
@@ -55,5 +56,7 @@ text = "Diagrama de Gantt - Round Robin"
 
 [node name="ResultsScreen" parent="HUDLayer" unique_id=368813787 instance=ExtResource("5_48pek")]
 visible = false
+
+[node name="InstructionScreen" parent="HUDLayer" unique_id=1342803701 instance=ExtResource("6_4uypo")]
 
 [editable path="HUDLayer/GanttChart"]

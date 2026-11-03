@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cg58p22e6e8u8"]
+
+[ext_resource type="Script" uid="uid://ig0lf7llpwt7" path="res://scripts/ui/instruction_screen.gd" id="1_1biqf"]
+
+[node name="InstructionScreen" type="Control" unique_id=1342803701]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1biqf")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1247014590]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7019608)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=165213001]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1385438814]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=545445142]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=856588935]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=526446874]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Round Robin (RR)"
+
+[node name="DescriptionLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=661375213]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+text = "Cada aluno poderá utilizar o bebedouro por até 2 unidades de tempo. Caso não termine, retornará ao final da fila."
+autowrap_mode = 3
+
+[node name="MissionLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1538083987]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+text = "Sua missão: selecione o primeiro aluno da fila e acompanhe o tempo restante de cada processo."
+autowrap_mode = 3
+
+[node name="StartButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1336646321]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Começar simulação"

@@ -18,6 +18,7 @@ var current_process: Process = null
 @onready var hud = $HUDLayer/SchedulingHUD
 @onready var gantt_chart = $HUDLayer/GanttChart
 @onready var results_screen = $HUDLayer/ResultsScreen
+@onready var instruction_screen = $HUDLayer/InstructionScreen
 
 func _ready() -> void:
 	var processes: Array[Process] = [
@@ -47,7 +48,15 @@ func _ready() -> void:
 		student.visible = false
 	hud.update_time(0, 15)
 	hud.update_cpu(null)
-	_run_simulation()
+	
+	instruction_screen.setup(
+		"First Come, First Served (FCFS)",
+		"No FCFS, os processos são atendidos na ordem em que chegam. Cada aluno utiliza o bebedouro até terminar, sem ser interrompido.",
+		"Selecione os alunos na ordem de chegada e acompanhe como a fila é atendida."
+	)
+
+	instruction_screen.start_pressed.connect(_on_instruction_start_pressed)
+	instruction_screen.show()
 
 
 func _run_simulation() -> void:
@@ -219,3 +228,6 @@ func _on_student_selected(process: Process) -> void:
 
 func _on_results_continue_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+
+func _on_instruction_start_pressed() -> void:
+	_run_simulation()

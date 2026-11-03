@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cxcoorwfgpdxs" path="res://scenes/ui/scheduling_hud.tscn" id="3_x5vh8"]
 [ext_resource type="PackedScene" uid="uid://byfcx5bfwifcg" path="res://scenes/ui/gantt_chart.tscn" id="4_16dfi"]
 [ext_resource type="PackedScene" uid="uid://d33lyl8ntu7wm" path="res://scenes/ui/results_screen.tscn" id="5_sn0ia"]
+[ext_resource type="PackedScene" uid="uid://cg58p22e6e8u8" path="res://scenes/ui/instruction_screen.tscn" id="6_mxx07"]
 
 [node name="SJFLevel" type="Node2D" unique_id=1986692536]
 script = ExtResource("1_utkhd")
@@ -52,5 +53,7 @@ mouse_filter = 2
 
 [node name="ResultsScreen" parent="HUDLayer" unique_id=368813787 instance=ExtResource("5_sn0ia")]
 visible = false
+
+[node name="InstructionScreen" parent="HUDLayer" unique_id=1342803701 instance=ExtResource("6_mxx07")]
 
 [editable path="HUDLayer/GanttChart"]

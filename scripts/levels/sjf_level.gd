@@ -83,9 +83,15 @@ func _run_simulation() -> void:
 		while waiting_for_selection:
 			await get_tree().process_frame
 
+		# Aguarda o aluno em execução chegar ao bebedouro.
+		if current_process != null:
+			var student: Student = students[current_process.pid]
+
+			while student.is_moving:
+				await get_tree().process_frame
+
 		await get_tree().create_timer(seconds_per_unit).timeout
 		simulation_time += 1
-
 	print("Simulação finalizada no tempo ", simulation_time)
 	results_screen.show_results(queue_order, "SJF")
 

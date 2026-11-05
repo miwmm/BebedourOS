@@ -95,8 +95,14 @@ func _run_simulation() -> void:
 
 		_start_process(process)
 
+		# Aguarda o aluno chegar antes de contar o quantum.
+		var student: Student = students[process.pid]
+
+		while student.is_moving:
+			await get_tree().process_frame
+
+		# O quantum começa somente após a chegada.
 		var elapsed_quantum: int = 0
-		var slice_duration: int = end_time - start_time
 
 		hud.update_quantum(0, QUANTUM)
 

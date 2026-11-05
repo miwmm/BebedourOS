@@ -80,9 +80,16 @@ func _run_simulation() -> void:
 		if simulation_time == final_time:
 			break
 
-		# Pausa o relógio enquanto o jogador escolhe.
+				# Pausa o relógio enquanto o jogador escolhe.
 		while waiting_for_selection:
 			await get_tree().process_frame
+
+		# Aguarda o aluno chegar ao bebedouro.
+		if current_process != null:
+			var student: Student = students[current_process.pid]
+
+			while student.is_moving:
+				await get_tree().process_frame
 
 		await get_tree().create_timer(seconds_per_unit).timeout
 		simulation_time += 1
@@ -245,6 +252,7 @@ func _on_student_selected(process: Process) -> void:
 
 		waiting_for_selection = false
 		_start_process(process)
+		
 	else:
 		hud.show_feedback(
 			"Incorreto! P%d chegou antes. Tente novamente." % expected_process.pid,

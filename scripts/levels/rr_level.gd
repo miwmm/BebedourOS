@@ -21,12 +21,14 @@ var selected_process: Process = null
 @onready var gantt_chart = $HUDLayer/GanttChart
 @onready var results_screen = $HUDLayer/ResultsScreen
 @onready var instruction_screen = $HUDLayer/InstructionScreen
+@onready var queue_entrance_a: Marker2D = $QueueEntranceA
+@onready var queue_entrance_b: Marker2D = $QueueEntranceB
 
 func _ready() -> void:
 	processes = [
 		Process.new(1, 0, 5),
-		Process.new(2, 0, 3),
-		Process.new(3, 0, 2)
+		Process.new(2, 1, 3),
+		Process.new(3, 2, 2)
 	]
 
 	var scheduler := RRScheduler.new(QUANTUM)
@@ -79,7 +81,10 @@ func _run_simulation() -> void:
 
 		_check_arrivals()
 		_update_hud()
-
+		
+		# Aguarda os alunos chegarem às posições da fila.
+		await _wait_for_queue_arrival()
+		
 		# Aguarda o jogador selecionar o próximo aluno.
 		waiting_for_selection = true
 		selected_process = null
@@ -208,8 +213,32 @@ func _update_queue_positions() -> void:
 	for i in range(ready_queue.size()):
 		var process: Process = ready_queue[i]
 		var student: Student = students[process.pid]
-		student.move_to(queue_positions[i].global_position)
+		var destination: Vector2 = queue_positions[i].global_position
 
+		if not student.has_entered_queue:
+			# Primeira entrada na fila.
+			student.move_along_path([
+				queue_entrance_a.global_position,
+				queue_entrance_b.global_position,
+				destination
+			])
+
+			student.has_entered_queue = true
+
+		elif student.is_entering_queue:
+			# Mantém os marcadores intermediários,
+			# atualizando apenas o destino final.
+			if not student.movement_path.is_empty():
+				student.movement_path[
+					student.movement_path.size() - 1
+				] = destination
+			else:
+				# O destino final já é o ponto atual.
+				student.target_position = destination
+
+		else:
+			# Aluno que já concluiu a entrada na fila.
+			student.move_to(destination)
 
 func _on_student_selected(process: Process) -> void:
 	if not waiting_for_selection:
@@ -253,3 +282,19 @@ func _on_results_continue_pressed() -> void:
 
 func _on_instruction_start_pressed() -> void:
 	_run_simulation()
+
+func _wait_for_queue_arrival() -> void:
+	var all_arrived: bool = false
+
+	while not all_arrived:
+		all_arrived = true
+
+		for process in ready_queue:
+			var student: Student = students[process.pid]
+
+			if student.is_moving:
+				all_arrived = false
+				break
+
+		if not all_arrived:
+			await get_tree().process_frame

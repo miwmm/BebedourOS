@@ -23,7 +23,14 @@ position = Vector2(685, 400)
 
 [node name="Students" type="Node2D" parent="." unique_id=165991018]
 
+[node name="QueueEntranceA" type="Marker2D" parent="." unique_id=2036957942]
+position = Vector2(641, 451)
+
+[node name="QueueEntranceB" type="Marker2D" parent="." unique_id=1264674055]
+position = Vector2(639, 555)
+
 [node name="QueuePositions" type="Node2D" parent="." unique_id=431742937]
+visible = false
 
 [node name="QueuePosition1" type="Marker2D" parent="QueuePositions" unique_id=350596448]
 position = Vector2(424, 540)

@@ -19,6 +19,8 @@ var current_process: Process = null
 @onready var gantt_chart = $HUDLayer/GanttChart
 @onready var results_screen = $HUDLayer/ResultsScreen
 @onready var instruction_screen = $HUDLayer/InstructionScreen
+@onready var queue_entrance_a: Marker2D = $QueueEntranceA
+@onready var queue_entrance_b: Marker2D = $QueueEntranceB
 
 func _ready() -> void:
 	print("SCRIPT EM EXECUÇÃO: ", get_script().resource_path)
@@ -168,6 +170,7 @@ func _create_students(processes: Array[Process]) -> void:
 		students[processes[i].pid] = student
 
 
+
 func _update_queue_positions() -> void:
 	var queue_positions: Array[Marker2D] = [
 		$QueuePositions/QueuePosition1,
@@ -178,8 +181,30 @@ func _update_queue_positions() -> void:
 	for i in range(ready_queue.size()):
 		var process: Process = ready_queue[i]
 		var student: Student = students[process.pid]
+		var destination: Vector2 = queue_positions[i].global_position
 
-		student.move_to(queue_positions[i].global_position)
+		if not student.has_entered_queue:
+			# Primeira entrada: segue o caminho em L.
+			student.move_along_path([
+				queue_entrance_a.global_position,
+				queue_entrance_b.global_position,
+				destination
+			])
+
+			student.has_entered_queue = true
+
+		elif student.is_entering_queue:
+			# Preserva o caminho em L durante a reorganização.
+			if not student.movement_path.is_empty():
+				student.movement_path[
+					student.movement_path.size() - 1
+				] = destination
+			else:
+				student.target_position = destination
+
+		else:
+			# Aluno já entrou: move diretamente dentro da fila.
+			student.move_to(destination)
 
 func _print_process_metrics() -> void:
 	print("\n===== RESULTADOS SJF =====")

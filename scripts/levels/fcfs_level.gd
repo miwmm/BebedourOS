@@ -227,7 +227,9 @@ func _on_student_selected(process: Process) -> void:
 		)
 
 func _on_results_continue_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+	get_tree().change_scene_to_file(
+		"res://scenes/menus/algorithm_selection.tscn"
+	)
 
 func _on_instruction_start_pressed() -> void:
 	_run_simulation()

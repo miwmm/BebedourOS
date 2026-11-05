@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqwj6qtw2t5e2"]
+[gd_scene format=3 uid="uid://cqwj6qtw2t5e2"]
 
 [ext_resource type="Script" uid="uid://bxqkr8p4wjtum" path="res://scenes/menus/algorithm_selection.gd" id="1_5llwg"]
 [ext_resource type="Texture2D" uid="uid://dwd5ni5jrhqqw" path="res://assets/backgrounds/main_menu.png" id="1_uvu8c"]
@@ -15,6 +15,14 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.719335, 0.0773509, 0.720017, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl8e7"]
+bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.717647, 0.0784314, 0.721569, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7oqu"]
 bg_color = Color(0.205229, 0.106719, 0.262306, 1)
 border_width_left = 3
@@ -23,7 +31,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.717647, 0.0784314, 0.721569, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl8e7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf210"]
 bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
 border_width_left = 2
 border_width_top = 2
@@ -39,7 +47,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.717647, 0.0784314, 0.721569, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf210"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejhad"]
 bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
 border_width_left = 2
 border_width_top = 2
@@ -55,7 +63,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.717647, 0.0784314, 0.721569, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejhad"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrpwi"]
 bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
 border_width_left = 2
 border_width_top = 2
@@ -71,15 +79,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.717647, 0.0784314, 0.721569, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrpwi"]
-bg_color = Color(0.141176, 0.0666667, 0.184314, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.717647, 0.0784314, 0.721569, 1)
-
-[node name="AlgorithmSelection" type="Control"]
+[node name="AlgorithmSelection" type="Control" unique_id=206484135]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,7 +88,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5llwg")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=2084829178]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,7 +99,7 @@ texture = ExtResource("1_uvu8c")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Content" type="MarginContainer" parent="."]
+[node name="Content" type="MarginContainer" parent="." unique_id=689650384]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,64 +107,66 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Content"]
+[node name="PanelContainer" type="PanelContainer" parent="Content" unique_id=1442236543]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5llwg")
 
-[node name="MainContainer" type="VBoxContainer" parent="Content/PanelContainer"]
+[node name="MainContainer" type="VBoxContainer" parent="Content/PanelContainer" unique_id=198642206]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 30
 
-[node name="Title" type="Label" parent="Content/PanelContainer/MainContainer"]
+[node name="Title" type="Label" parent="Content/PanelContainer/MainContainer" unique_id=1725434941]
 layout_mode = 2
 text = "ESCOLHA O ALGORITMO"
 
-[node name="AlgorithmGrid" type="GridContainer" parent="Content/PanelContainer/MainContainer"]
+[node name="AlgorithmGrid" type="GridContainer" parent="Content/PanelContainer/MainContainer" unique_id=394553303]
 layout_mode = 2
 theme_override_constants/h_separation = 30
 theme_override_constants/v_separation = 20
 columns = 2
 
-[node name="FCFSButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+[node name="FCFSButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid" unique_id=1188159453]
 custom_minimum_size = Vector2(320, 140)
 layout_mode = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_w7oqu")
 theme_override_styles/normal = SubResource("StyleBoxFlat_sl8e7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w7oqu")
 text = "FCFS
 
 Primeiro a chegar,
  primeiro a executar"
 
-[node name="SJFButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+[node name="SJFButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid" unique_id=866172780]
 custom_minimum_size = Vector2(320, 140)
 layout_mode = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_uvu8c")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tf210")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uvu8c")
 text = "SJF
 
 O menor processo é 
 executado primeiro"
 
-[node name="PriorityButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+[node name="PriorityButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid" unique_id=636490187]
 custom_minimum_size = Vector2(320, 140)
 layout_mode = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_d4q8b")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ejhad")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d4q8b")
 text = "Prioridade
 
 Processos com maior prioridade 
 são executados primeiro"
 
-[node name="RoundRobinButton4" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid"]
+[node name="RoundRobinButton" type="Button" parent="Content/PanelContainer/MainContainer/AlgorithmGrid" unique_id=1895242300]
 custom_minimum_size = Vector2(320, 140)
 layout_mode = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_kitea")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hrpwi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kitea")
 text = "ROUND ROBIN
 
 Cada processo recebe uma
  fatia de tempo da CPU."
 
 [connection signal="pressed" from="Content/PanelContainer/MainContainer/AlgorithmGrid/FCFSButton" to="." method="_on_fcfs_button_pressed"]
+[connection signal="pressed" from="Content/PanelContainer/MainContainer/AlgorithmGrid/SJFButton" to="." method="_on_sjf_button_pressed"]
+[connection signal="pressed" from="Content/PanelContainer/MainContainer/AlgorithmGrid/RoundRobinButton" to="." method="_on_round_robin_button_pressed"]

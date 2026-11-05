@@ -2,7 +2,9 @@ extends Node2D
 
 const STUDENT_SCENE := preload("res://scenes/characters/student.tscn")
 const QUANTUM: int = 2
+const SCENARIO_SCRIPT = preload("res://scripts/scheduling/scenario_manager.gd")
 
+@export_range(0, 2, 1) var scenario_index: int = 0
 @export var seconds_per_unit: float = 2.0
 
 var simulation_time: int = 0
@@ -25,11 +27,7 @@ var selected_process: Process = null
 @onready var queue_entrance_b: Marker2D = $QueueEntranceB
 
 func _ready() -> void:
-	processes = [
-		Process.new(1, 0, 5),
-		Process.new(2, 1, 3),
-		Process.new(3, 2, 2)
-	]
+	processes = SCENARIO_SCRIPT.get_processes("RR", scenario_index)
 
 	var scheduler := RRScheduler.new(QUANTUM)
 	timeline = scheduler.schedule(processes)
@@ -195,7 +193,9 @@ func _create_students(process_list: Array[Process]) -> void:
 	var spawn_points: Array[Marker2D] = [
 		$StudentSpawn1,
 		$StudentSpawn2,
-		$StudentSpawn3
+		$StudentSpawn3,
+		$StudentSpawn4,
+		$StudentSpawn5
 	]
 
 	for i in range(process_list.size()):
@@ -213,7 +213,9 @@ func _update_queue_positions() -> void:
 	var queue_positions: Array[Marker2D] = [
 		$QueuePositions/QueuePosition1,
 		$QueuePositions/QueuePosition2,
-		$QueuePositions/QueuePosition3
+		$QueuePositions/QueuePosition3,
+		$QueuePositions/QueuePosition4,
+		$QueuePositions/QueuePosition5
 	]
 
 	for i in range(ready_queue.size()):

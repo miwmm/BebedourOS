@@ -2,9 +2,10 @@
 extends Node2D
 
 const STUDENT_SCENE := preload("res://scenes/characters/student.tscn")
-
+const SCENARIO_SCRIPT = preload("res://scripts/scheduling/scenario_manager.gd")
 # Cada unidade lógica terá 2 segundos reais para facilitar as animações.
 @export var seconds_per_unit: float = 2.0
+@export_range(0, 2, 1) var scenario_index: int = 0
 
 var simulation_time: int = 0
 var students: Dictionary = {}
@@ -22,13 +23,15 @@ var current_process: Process = null
 @onready var queue_entrance_a: Marker2D = $QueueEntranceA
 @onready var queue_entrance_b: Marker2D = $QueueEntranceB
 
+
 func _ready() -> void:
 	print("SCRIPT EM EXECUÇÃO: ", get_script().resource_path)
-	var processes: Array[Process] = [
-		Process.new(1, 0, 8),
-		Process.new(2, 1, 4),
-		Process.new(3, 2, 2)
-	]
+
+	# Carrega os processos do cenário selecionado.
+	var processes: Array[Process] = SCENARIO_SCRIPT.get_processes(
+		"SJF",
+		scenario_index
+	)
 
 	var scheduler := SJFScheduler.new()
 	queue_order = scheduler.schedule(processes)
@@ -39,26 +42,32 @@ func _ready() -> void:
 		final_time = maxi(final_time, process.completion_time)
 
 	gantt_chart.setup(final_time)
-	
-	results_screen.continue_pressed.connect(_on_results_continue_pressed)
-	
+
+	results_screen.continue_pressed.connect(
+		_on_results_continue_pressed
+	)
+
 	_create_students(processes)
 	_print_process_metrics()
 
 	for student in students.values():
 		student.visible = false
-	hud.update_time(0, 14)
+
+	# Atualiza o HUD com a duração do cenário.
+	hud.update_time(0, final_time)
 	hud.update_cpu(null)
-	
+	hud.update_queue(ready_queue)
+
 	instruction_screen.setup(
 		"Shortest Job First (SJF)",
 		"No SJF, o processo com menor tempo de execução é escolhido entre os que já chegaram. Depois de começar, ele utiliza o bebedouro até terminar.",
 		"Selecione o aluno com menor tempo de execução entre os disponíveis na fila."
 	)
 
-	instruction_screen.start_pressed.connect(_on_instruction_start_pressed)
+	instruction_screen.start_pressed.connect(
+		_on_instruction_start_pressed
+	)
 	instruction_screen.show()
-
 
 func _run_simulation() -> void:
 	var final_time: int = 0
@@ -161,7 +170,9 @@ func _create_students(processes: Array[Process]) -> void:
 	var spawn_points: Array[Marker2D] = [
 		$StudentSpawn1,
 		$StudentSpawn2,
-		$StudentSpawn3
+		$StudentSpawn3,
+		$StudentSpawn4,
+		$StudentSpawn5
 	]
 
 	for i in range(processes.size()):
@@ -181,7 +192,9 @@ func _update_queue_positions() -> void:
 	var queue_positions: Array[Marker2D] = [
 		$QueuePositions/QueuePosition1,
 		$QueuePositions/QueuePosition2,
-		$QueuePositions/QueuePosition3
+		$QueuePositions/QueuePosition3,
+		$QueuePositions/QueuePosition4,
+		$QueuePositions/QueuePosition5
 	]
 
 	for i in range(ready_queue.size()):

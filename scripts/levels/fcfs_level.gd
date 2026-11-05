@@ -2,9 +2,12 @@
 extends Node2D
 
 const STUDENT_SCENE := preload("res://scenes/characters/student.tscn")
-
+const SCENARIO_SCRIPT = preload("res://scripts/scheduling/scenario_manager.gd")
 # Cada unidade lógica terá 2 segundos reais para facilitar as animações.
 @export var seconds_per_unit: float = 2.0
+
+# Cenarios para escolher
+@export_range(0, 2, 1) var scenario_index: int = 0
 
 var simulation_time: int = 0
 var students: Dictionary = {}
@@ -22,12 +25,13 @@ var current_process: Process = null
 @onready var queue_entrance_a: Marker2D = $QueueEntranceA
 @onready var queue_entrance_b: Marker2D = $QueueEntranceB
 
+
 func _ready() -> void:
-	var processes: Array[Process] = [
-		Process.new(1, 2, 5),
-		Process.new(2, 0, 6),
-		Process.new(3, 3, 7)
-	]
+	# Carrega os processos do cenário selecionado.
+	var processes: Array[Process] = SCENARIO_SCRIPT.get_processes(
+		"FCFS",
+		scenario_index
+	)
 
 	var scheduler := FCFSScheduler.new()
 
@@ -40,26 +44,32 @@ func _ready() -> void:
 		final_time = maxi(final_time, process.completion_time)
 
 	gantt_chart.setup(final_time)
-	
-	results_screen.continue_pressed.connect(_on_results_continue_pressed)
-	
+
+	results_screen.continue_pressed.connect(
+		_on_results_continue_pressed
+	)
+
 	_create_students(processes)
 	_print_process_metrics()
 
 	for student in students.values():
 		student.visible = false
-	hud.update_time(0, 15)
+
+	# O HUD agora utiliza a duração real do cenário.
+	hud.update_time(0, final_time)
 	hud.update_cpu(null)
-	
+	hud.update_queue(ready_queue)
+
 	instruction_screen.setup(
 		"First Come, First Served (FCFS)",
 		"No FCFS, os processos são atendidos na ordem em que chegam. Cada aluno utiliza o bebedouro até terminar, sem ser interrompido.",
 		"Selecione os alunos na ordem de chegada e acompanhe como a fila é atendida."
 	)
 
-	instruction_screen.start_pressed.connect(_on_instruction_start_pressed)
+	instruction_screen.start_pressed.connect(
+		_on_instruction_start_pressed
+	)
 	instruction_screen.show()
-
 
 func _run_simulation() -> void:
 	var final_time: int = 0
@@ -162,7 +172,9 @@ func _create_students(processes: Array[Process]) -> void:
 	var spawn_points: Array[Marker2D] = [
 		$StudentSpawn1,
 		$StudentSpawn2,
-		$StudentSpawn3
+		$StudentSpawn3,
+		$StudentSpawn4,
+		$StudentSpawn5
 	]
 
 	for i in range(processes.size()):
@@ -182,7 +194,9 @@ func _update_queue_positions() -> void:
 	var queue_positions: Array[Marker2D] = [
 		$QueuePositions/QueuePosition1,
 		$QueuePositions/QueuePosition2,
-		$QueuePositions/QueuePosition3
+		$QueuePositions/QueuePosition3,
+		$QueuePositions/QueuePosition4,
+		$QueuePositions/QueuePosition5
 	]
 
 	for i in range(ready_queue.size()):
@@ -201,14 +215,8 @@ func _update_queue_positions() -> void:
 			student.has_entered_queue = true
 
 		elif student.is_entering_queue:
-			# Preserva o caminho em L durante a reorganização.
-			if not student.movement_path.is_empty():
-				student.movement_path[
-					student.movement_path.size() - 1
-				] = destination
-			else:
-				student.target_position = destination
-
+			student.update_queue_destination(destination)
+		
 		else:
 			# Aluno já entrou: move diretamente dentro da fila.
 			student.move_to(destination)

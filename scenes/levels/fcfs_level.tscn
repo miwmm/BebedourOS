@@ -9,6 +9,7 @@
 
 [node name="FCFSLevel" type="Node2D" unique_id=1986692536]
 script = ExtResource("1_63gci")
+scenario_index = 2
 
 [node name="Classroom" parent="." unique_id=795672055 instance=ExtResource("2_22t76")]
 
@@ -21,25 +22,36 @@ position = Vector2(636, 405)
 [node name="StudentSpawn3" type="Marker2D" parent="." unique_id=1338311504]
 position = Vector2(685, 400)
 
+[node name="StudentSpawn4" type="Marker2D" parent="." unique_id=32524357]
+position = Vector2(620, 383)
+
+[node name="StudentSpawn5" type="Marker2D" parent="." unique_id=1685993174]
+position = Vector2(663, 382)
+
 [node name="Students" type="Node2D" parent="." unique_id=165991018]
 
 [node name="QueueEntranceA" type="Marker2D" parent="." unique_id=2036957942]
 position = Vector2(641, 451)
 
 [node name="QueueEntranceB" type="Marker2D" parent="." unique_id=1264674055]
-position = Vector2(639, 555)
+position = Vector2(642, 550)
 
 [node name="QueuePositions" type="Node2D" parent="." unique_id=431742937]
-visible = false
 
 [node name="QueuePosition1" type="Marker2D" parent="QueuePositions" unique_id=350596448]
-position = Vector2(424, 540)
+position = Vector2(369, 552)
 
 [node name="QueuePosition2" type="Marker2D" parent="QueuePositions" unique_id=1429771268]
-position = Vector2(483, 540)
+position = Vector2(410, 552)
 
 [node name="QueuePosition3" type="Marker2D" parent="QueuePositions" unique_id=883637374]
-position = Vector2(540, 540)
+position = Vector2(452, 553)
+
+[node name="QueuePosition4" type="Marker2D" parent="QueuePositions" unique_id=1043830584]
+position = Vector2(499, 553)
+
+[node name="QueuePosition5" type="Marker2D" parent="QueuePositions" unique_id=1630819689]
+position = Vector2(550, 553)
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=209994018]
 

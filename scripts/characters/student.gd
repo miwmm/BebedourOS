@@ -55,6 +55,14 @@ func move_along_path(points: Array[Vector2]) -> void:
 	is_entering_queue = true
 	_start_next_movement()
 
+# Atualiza o destino final sem interromper o percurso.
+func update_queue_destination(destination: Vector2) -> void:
+	if not movement_path.is_empty():
+		movement_path[movement_path.size() - 1] = destination
+	elif is_moving:
+		target_position = destination
+	else:
+		move_to(destination)
 
 # Inicia o movimento até o próximo ponto.
 func _start_next_movement() -> void:
